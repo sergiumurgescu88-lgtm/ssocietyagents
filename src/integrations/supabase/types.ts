@@ -128,6 +128,60 @@ export type Database = {
           },
         ]
       }
+      opportunities: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          effort_level: string
+          estimated_revenue_max: number | null
+          estimated_revenue_min: number | null
+          expires_at: string | null
+          id: string
+          is_new: boolean | null
+          profit_score: number
+          sources: Json | null
+          tags: string[] | null
+          title: string
+          trend: string | null
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string
+          effort_level?: string
+          estimated_revenue_max?: number | null
+          estimated_revenue_min?: number | null
+          expires_at?: string | null
+          id?: string
+          is_new?: boolean | null
+          profit_score?: number
+          sources?: Json | null
+          tags?: string[] | null
+          title: string
+          trend?: string | null
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          effort_level?: string
+          estimated_revenue_max?: number | null
+          estimated_revenue_min?: number | null
+          expires_at?: string | null
+          id?: string
+          is_new?: boolean | null
+          profit_score?: number
+          sources?: Json | null
+          tags?: string[] | null
+          title?: string
+          trend?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -274,6 +328,33 @@ export type Database = {
         }
         Relationships: []
       }
+      scan_logs: {
+        Row: {
+          duration_ms: number | null
+          id: string
+          opportunities_found: number | null
+          scan_date: string
+          sources_used: string[] | null
+          user_id: string
+        }
+        Insert: {
+          duration_ms?: number | null
+          id?: string
+          opportunities_found?: number | null
+          scan_date?: string
+          sources_used?: string[] | null
+          user_id: string
+        }
+        Update: {
+          duration_ms?: number | null
+          id?: string
+          opportunities_found?: number | null
+          scan_date?: string
+          sources_used?: string[] | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           created_at: string
@@ -396,6 +477,41 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      user_opportunities: {
+        Row: {
+          created_at: string
+          id: string
+          opportunity_id: string
+          rated_score: number | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          opportunity_id: string
+          rated_score?: number | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          opportunity_id?: string
+          rated_score?: number | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_opportunities_opportunity_id_fkey"
+            columns: ["opportunity_id"]
+            isOneToOne: false
+            referencedRelation: "opportunities"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
