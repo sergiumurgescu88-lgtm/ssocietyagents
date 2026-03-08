@@ -301,7 +301,7 @@ export default function Opportunities() {
           {tab === "feed" && (
             <Button
               className="mt-4 gap-2"
-              onClick={() => scanMutation.mutate()}
+              onClick={() => scanMutation.mutate(undefined)}
               disabled={scanMutation.isPending}
             >
               <Sparkles className="h-4 w-4" />
