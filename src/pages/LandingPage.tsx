@@ -352,15 +352,68 @@ export default function LandingPage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-border bg-muted/30 px-6 py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} VentureAI. Toate drepturile rezervate.
-          </p>
-          <div className="flex gap-4 text-sm text-muted-foreground">
-            <Link to="/terms" className="hover:text-foreground transition">Termeni</Link>
-            <Link to="/privacy" className="hover:text-foreground transition">Confidențialitate</Link>
-            <Link to="/pricing" className="hover:text-foreground transition">Prețuri</Link>
+      <footer className="border-t border-border bg-muted/30 px-6 py-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Brand & Powered by */}
+            <div>
+              <p className="text-lg font-extrabold tracking-tight">
+                <span className="gradient-money-text">Venture</span>AI
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Platforma inteligentă pentru antreprenori digitali.
+              </p>
+              <p className="mt-4 text-xs text-muted-foreground">
+                Powered by{" "}
+                <a href="https://ssociety.eu" target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground hover:text-primary transition">
+                  ssociety.eu
+                </a>{" "}
+                — <span className="font-semibold">SSocietyHUB</span>
+              </p>
+            </div>
+
+            {/* Company details */}
+            <div>
+              <p className="text-sm font-semibold mb-2">Date firmă</p>
+              <ul className="space-y-1 text-xs text-muted-foreground">
+                <li className="font-medium text-foreground">MURSE ADVERTISING S.R.L.</li>
+                <li>CUI: 44923890</li>
+                <li>Nr. Înmatriculare: J40/16148/2021</li>
+                <li>EUID: ROONRC.J40/16148/2021</li>
+                <li>Data înființării: 17-09-2021</li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <p className="text-sm font-semibold mb-2">Contact</p>
+              <ul className="space-y-1 text-xs text-muted-foreground">
+                <li>
+                  <a href="mailto:sergiusociety@gmail.com" className="hover:text-foreground transition">
+                    sergiusociety@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+40768676141" className="hover:text-foreground transition">
+                    +40 768 676 141
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Links */}
+            <div>
+              <p className="text-sm font-semibold mb-2">Linkuri utile</p>
+              <ul className="space-y-1 text-xs text-muted-foreground">
+                <li><Link to="/terms" className="hover:text-foreground transition">Termeni și condiții</Link></li>
+                <li><Link to="/privacy" className="hover:text-foreground transition">Politica de confidențialitate</Link></li>
+                <li><Link to="/pricing" className="hover:text-foreground transition">Prețuri</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-10 border-t border-border pt-6 text-center text-xs text-muted-foreground">
+            © {new Date().getFullYear()} VentureAI · MURSE ADVERTISING S.R.L. Toate drepturile rezervate.
           </div>
         </div>
       </footer>
