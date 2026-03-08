@@ -63,6 +63,7 @@ function AppRoutes() {
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/terms" element={<LazyPage><TermsOfService /></LazyPage>} />
       <Route path="/privacy" element={<LazyPage><PrivacyPolicy /></LazyPage>} />
+      <Route path="/pricing" element={<LazyPage><Pricing /></LazyPage>} />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route
         element={

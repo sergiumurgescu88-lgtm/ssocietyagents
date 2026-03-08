@@ -96,7 +96,10 @@ export function AppSidebar() {
             <p className="mt-1 text-xs text-primary-foreground/80">
               Deblochează agenți nelimitați și analytics avansat
             </p>
-            <button className="mt-3 w-full rounded-lg bg-primary-foreground/20 px-3 py-1.5 text-xs font-medium text-primary-foreground backdrop-blur-sm transition-colors hover:bg-primary-foreground/30">
+            <button
+              onClick={() => navigate("/pricing")}
+              className="mt-3 w-full rounded-lg bg-primary-foreground/20 px-3 py-1.5 text-xs font-medium text-primary-foreground backdrop-blur-sm transition-colors hover:bg-primary-foreground/30"
+            >
               Vezi planuri
             </button>
           </div>
