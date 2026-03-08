@@ -3,6 +3,7 @@ import { useAuth } from "@/stores/auth-store";
 import { usePlan } from "@/stores/plan-store";
 import { UserProfile } from "@/components/profile/UserProfile";
 import { BillingSettings } from "@/components/profile/BillingSettings";
+import { NotificationPreferences } from "@/components/notifications/NotificationPreferences";
 import { PlanBadge } from "@/components/profile/PlanBadge";
 import { User, CreditCard, Key, Bell, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -82,14 +83,7 @@ export default function SettingsPage() {
             </p>
           </div>
         )}
-        {activeTab === "notifications" && (
-          <div className="text-center py-12">
-            <Bell className="mx-auto h-10 w-10 text-muted-foreground" />
-            <p className="mt-3 text-sm text-muted-foreground">
-              Preferințele de notificare vor fi disponibile în curând.
-            </p>
-          </div>
-        )}
+        {activeTab === "notifications" && <NotificationPreferences />}
       </div>
     </div>
   );

@@ -108,6 +108,47 @@ export type Database = {
         }
         Relationships: []
       }
+      expenses: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          date: string
+          description: string | null
+          id: string
+          project_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          category?: string
+          created_at?: string
+          date?: string
+          description?: string | null
+          id?: string
+          project_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          date?: string
+          description?: string | null
+          id?: string
+          project_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expenses_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       learning_modules: {
         Row: {
           action_items: string[] | null
@@ -202,6 +243,90 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      notification_preferences: {
+        Row: {
+          agent_updates: boolean
+          created_at: string
+          daily_digest_enabled: boolean
+          daily_digest_time: string
+          email_enabled: boolean
+          id: string
+          in_app_enabled: boolean
+          learning_reminders: boolean
+          opportunity_alerts: boolean
+          project_alerts: boolean
+          push_enabled: boolean
+          revenue_alerts: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          agent_updates?: boolean
+          created_at?: string
+          daily_digest_enabled?: boolean
+          daily_digest_time?: string
+          email_enabled?: boolean
+          id?: string
+          in_app_enabled?: boolean
+          learning_reminders?: boolean
+          opportunity_alerts?: boolean
+          project_alerts?: boolean
+          push_enabled?: boolean
+          revenue_alerts?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          agent_updates?: boolean
+          created_at?: string
+          daily_digest_enabled?: boolean
+          daily_digest_time?: string
+          email_enabled?: boolean
+          id?: string
+          in_app_enabled?: boolean
+          learning_reminders?: boolean
+          opportunity_alerts?: boolean
+          project_alerts?: boolean
+          push_enabled?: boolean
+          revenue_alerts?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          action_url: string | null
+          created_at: string
+          id: string
+          message: string
+          read: boolean
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          action_url?: string | null
+          created_at?: string
+          id?: string
+          message?: string
+          read?: boolean
+          title: string
+          type?: string
+          user_id: string
+        }
+        Update: {
+          action_url?: string | null
+          created_at?: string
+          id?: string
+          message?: string
+          read?: boolean
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       opportunities: {
         Row: {
@@ -431,6 +556,53 @@ export type Database = {
             columns: ["module_id"]
             isOneToOne: false
             referencedRelation: "learning_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      revenue_transactions: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          currency: string
+          date: string
+          description: string | null
+          id: string
+          project_id: string | null
+          source: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          category?: string
+          created_at?: string
+          currency?: string
+          date?: string
+          description?: string | null
+          id?: string
+          project_id?: string | null
+          source?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          currency?: string
+          date?: string
+          description?: string | null
+          id?: string
+          project_id?: string | null
+          source?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "revenue_transactions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
             referencedColumns: ["id"]
           },
         ]

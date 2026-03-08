@@ -1,9 +1,7 @@
 import {
-  Bell,
   Menu,
   Moon,
   Sun,
-  DollarSign,
   ChevronDown,
   LogOut,
 } from "lucide-react";
@@ -12,25 +10,22 @@ import { useAuth } from "@/stores/auth-store";
 import { usePlan } from "@/stores/plan-store";
 import { useTheme } from "@/hooks/use-theme";
 import { PlanBadge } from "@/components/profile/PlanBadge";
+import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function AppHeader() {
-  const { notifications, sidebarOpen, toggleSidebar, markAllNotificationsRead } = useAppStore();
+  const { sidebarOpen, toggleSidebar } = useAppStore();
   const { profile, signOut } = useAuth();
   const { currentPlan } = usePlan();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
-  const unreadCount = notifications.filter((n) => !n.read).length;
-  const [notifOpen, setNotifOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const notifRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (notifRef.current && !notifRef.current.contains(e.target as Node)) setNotifOpen(false);
       if (userRef.current && !userRef.current.contains(e.target as Node)) setUserMenuOpen(false);
     };
     document.addEventListener("mousedown", handler);
@@ -64,43 +59,7 @@ export function AppHeader() {
         {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
       </button>
 
-      {/* Notifications */}
-      <div className="relative" ref={notifRef}>
-        <button
-          onClick={() => setNotifOpen(!notifOpen)}
-          className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-        >
-          <Bell className="h-5 w-5" />
-          {unreadCount > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full gradient-money text-[10px] font-bold text-primary-foreground">
-              {unreadCount}
-            </span>
-          )}
-        </button>
-        {notifOpen && (
-          <div className="absolute right-0 top-12 w-80 rounded-xl border border-border bg-card p-2 shadow-card-hover animate-slide-in">
-            <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-sm font-semibold">Notificări</span>
-              {unreadCount > 0 && (
-                <button onClick={markAllNotificationsRead} className="text-xs text-primary hover:underline">
-                  Marchează toate citite
-                </button>
-              )}
-            </div>
-            <div className="max-h-64 space-y-1 overflow-y-auto">
-              {notifications.map((n) => (
-                <div
-                  key={n.id}
-                  className={cn("rounded-lg px-3 py-2 text-sm transition-colors", !n.read ? "bg-secondary" : "opacity-60")}
-                >
-                  <p className="font-medium">{n.title}</p>
-                  <p className="text-xs text-muted-foreground">{n.message}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+      <NotificationCenter />
 
       {/* User menu */}
       <div className="relative" ref={userRef}>
