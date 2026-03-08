@@ -13,6 +13,7 @@ import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import Dashboard from "@/pages/Dashboard";
 import Projects from "@/pages/Projects";
+import ProjectDetail from "@/pages/ProjectDetail";
 import Agents from "@/pages/Agents";
 import Opportunities from "@/pages/Opportunities";
 import Learning from "@/pages/Learning";
@@ -45,6 +46,7 @@ function AppRoutes() {
       >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/project/:id" element={<ProjectDetail />} />
         <Route path="/agents" element={<Agents />} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/learning" element={<Learning />} />

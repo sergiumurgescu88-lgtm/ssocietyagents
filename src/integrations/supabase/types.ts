@@ -14,6 +14,50 @@ export type Database = {
   }
   public: {
     Tables: {
+      milestones: {
+        Row: {
+          completed: boolean | null
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          due_date: string
+          id: string
+          project_id: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_date: string
+          id?: string
+          project_id: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string
+          id?: string
+          project_id?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "milestones_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -53,6 +97,113 @@ export type Database = {
         }
         Relationships: []
       }
+      project_agents: {
+        Row: {
+          assigned_at: string
+          created_at: string
+          id: string
+          name: string
+          performance_score: number | null
+          project_id: string
+          role: Database["public"]["Enums"]["agent_role"]
+          status: string
+          system_prompt: string | null
+          tasks_completed: number | null
+          tasks_total: number | null
+          user_id: string
+        }
+        Insert: {
+          assigned_at?: string
+          created_at?: string
+          id?: string
+          name: string
+          performance_score?: number | null
+          project_id: string
+          role: Database["public"]["Enums"]["agent_role"]
+          status?: string
+          system_prompt?: string | null
+          tasks_completed?: number | null
+          tasks_total?: number | null
+          user_id: string
+        }
+        Update: {
+          assigned_at?: string
+          created_at?: string
+          id?: string
+          name?: string
+          performance_score?: number | null
+          project_id?: string
+          role?: Database["public"]["Enums"]["agent_role"]
+          status?: string
+          system_prompt?: string | null
+          tasks_completed?: number | null
+          tasks_total?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_agents_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          budget_hours: number | null
+          budget_money: number | null
+          category: Database["public"]["Enums"]["project_category"]
+          created_at: string
+          current_revenue: number | null
+          deadline: string | null
+          description: string | null
+          id: string
+          progress: number | null
+          revenue_target: number | null
+          status: Database["public"]["Enums"]["project_status"]
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          budget_hours?: number | null
+          budget_money?: number | null
+          category?: Database["public"]["Enums"]["project_category"]
+          created_at?: string
+          current_revenue?: number | null
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          progress?: number | null
+          revenue_target?: number | null
+          status?: Database["public"]["Enums"]["project_status"]
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          budget_hours?: number | null
+          budget_money?: number | null
+          category?: Database["public"]["Enums"]["project_category"]
+          created_at?: string
+          current_revenue?: number | null
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          progress?: number | null
+          revenue_target?: number | null
+          status?: Database["public"]["Enums"]["project_status"]
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           created_at: string
@@ -85,6 +236,63 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      tasks: {
+        Row: {
+          agent_id: string | null
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          priority: Database["public"]["Enums"]["task_priority"]
+          project_id: string
+          status: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          agent_id?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["task_priority"]
+          project_id: string
+          status?: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          agent_id?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["task_priority"]
+          project_id?: string
+          status?: Database["public"]["Enums"]["task_status"]
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "project_agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       usage_tracking: {
         Row: {
@@ -127,8 +335,25 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      agent_role:
+        | "project_manager"
+        | "developer"
+        | "marketer"
+        | "sales"
+        | "researcher"
+        | "analyst"
       plan_type: "free" | "pro" | "agency"
+      project_category:
+        | "ecommerce"
+        | "saas"
+        | "content"
+        | "affiliate"
+        | "consulting"
+        | "other"
+      project_status: "active" | "paused" | "completed" | "blocked" | "archived"
       subscription_status: "active" | "canceled" | "past_due" | "trialing"
+      task_priority: "low" | "medium" | "high" | "urgent"
+      task_status: "todo" | "in_progress" | "done" | "blocked"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -256,8 +481,27 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      agent_role: [
+        "project_manager",
+        "developer",
+        "marketer",
+        "sales",
+        "researcher",
+        "analyst",
+      ],
       plan_type: ["free", "pro", "agency"],
+      project_category: [
+        "ecommerce",
+        "saas",
+        "content",
+        "affiliate",
+        "consulting",
+        "other",
+      ],
+      project_status: ["active", "paused", "completed", "blocked", "archived"],
       subscription_status: ["active", "canceled", "past_due", "trialing"],
+      task_priority: ["low", "medium", "high", "urgent"],
+      task_status: ["todo", "in_progress", "done", "blocked"],
     },
   },
 } as const
