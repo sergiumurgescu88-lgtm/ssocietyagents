@@ -13,7 +13,7 @@ import { usePlan } from "@/stores/plan-store";
 import { mockRevenueChart } from "@/lib/mock-data";
 import { StatCard } from "@/components/StatCard";
 import { ProjectCard } from "@/components/ProjectCard";
-import { OpportunityCard } from "@/components/OpportunityCard";
+import { OpportunityCardSimple } from "@/components/OpportunityCardSimple";
 import { AgentStatusIndicator } from "@/components/AgentStatusIndicator";
 import {
   AreaChart,
