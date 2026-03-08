@@ -15,6 +15,7 @@ import Dashboard from "@/pages/Dashboard";
 import Projects from "@/pages/Projects";
 import ProjectDetail from "@/pages/ProjectDetail";
 import Agents from "@/pages/Agents";
+import AgentDetail from "@/pages/AgentDetail";
 import Opportunities from "@/pages/Opportunities";
 import Learning from "@/pages/Learning";
 import Revenue from "@/pages/Revenue";
