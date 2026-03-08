@@ -2,7 +2,7 @@ import type { Opportunity } from "@/types";
 import { cn } from "@/lib/utils";
 import { TrendingUp, Sparkles } from "lucide-react";
 
-export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
+export function OpportunityCardSimple({ opportunity }: { opportunity: Opportunity }) {
   const scoreColor = opportunity.score >= 85 ? "text-primary" : opportunity.score >= 70 ? "text-warning" : "text-muted-foreground";
 
   return (
