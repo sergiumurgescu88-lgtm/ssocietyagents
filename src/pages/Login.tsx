@@ -140,6 +140,12 @@ export default function Login() {
             Creează unul gratuit
           </Link>
         </p>
+        <p className="mt-3 text-center text-[10px] text-muted-foreground/60">
+          Prin autentificare, accepți{" "}
+          <Link to="/terms" className="underline hover:text-muted-foreground">Termenii</Link>
+          {" "}și{" "}
+          <Link to="/privacy" className="underline hover:text-muted-foreground">Politica de Confidențialitate</Link>
+        </p>
       </div>
     </div>
   );
