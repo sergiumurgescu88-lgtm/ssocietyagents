@@ -26,6 +26,7 @@ const navItems = [
 
 export function AppSidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { sidebarOpen, toggleSidebar, setSidebarOpen } = useAppStore();
   const isMobile = useIsMobile();
 
