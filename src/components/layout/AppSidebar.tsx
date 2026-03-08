@@ -27,7 +27,7 @@ const navItems = [
 export function AppSidebar() {
   const location = useLocation();
   const { sidebarOpen, toggleSidebar, setSidebarOpen } = useAppStore();
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
 
   const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + "/");
 
