@@ -1,0 +1,18 @@
+{
+  "name": "VentureAI",
+  "short_name": "VentureAI",
+  "description": "Platformă AI pentru generare de venituri",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#f8f8f8",
+  "theme_color": "#22c55e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["business", "finance", "productivity"]
+}
