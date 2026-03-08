@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { LearningModuleDB, QuizDB } from "@/lib/learning-api";
+import type { LearningModuleDB, QuizDB, QuizQuestion } from "@/lib/learning-api";
 import { fetchQuizForModule, updateModuleProgress, submitQuiz } from "@/lib/learning-api";
 import { categoryMeta } from "@/lib/learning-api";
 import { QuizComponent } from "@/components/learning/QuizComponent";
