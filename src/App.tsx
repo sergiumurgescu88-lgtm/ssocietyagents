@@ -15,6 +15,7 @@ import Dashboard from "@/pages/Dashboard";
 import Projects from "@/pages/Projects";
 import ProjectDetail from "@/pages/ProjectDetail";
 import Agents from "@/pages/Agents";
+import AgentDetail from "@/pages/AgentDetail";
 import Opportunities from "@/pages/Opportunities";
 import Learning from "@/pages/Learning";
 import Revenue from "@/pages/Revenue";
@@ -48,6 +49,7 @@ function AppRoutes() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/project/:id" element={<ProjectDetail />} />
         <Route path="/agents" element={<Agents />} />
+        <Route path="/agent/:id" element={<AgentDetail />} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/learning" element={<Learning />} />
         <Route path="/revenue" element={<Revenue />} />
