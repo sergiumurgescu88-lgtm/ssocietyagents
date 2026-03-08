@@ -48,7 +48,7 @@ export async function createAgentLog(data: {
   action_type: string;
   details?: Record<string, unknown>;
 }) {
-  return supabase.from("agent_logs").insert(data);
+  return supabase.from("agent_logs").insert([data]);
 }
 
 // Update agent status
