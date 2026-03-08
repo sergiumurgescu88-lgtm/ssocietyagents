@@ -26,6 +26,7 @@ const SettingsPage = lazy(() => import("@/pages/Settings"));
 const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const Pricing = lazy(() => import("@/pages/Pricing"));
+const LandingPage = lazy(() => import("@/pages/LandingPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
