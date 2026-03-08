@@ -13,6 +13,7 @@ import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import Dashboard from "@/pages/Dashboard";
 import Projects from "@/pages/Projects";
+import ProjectDetail from "@/pages/ProjectDetail";
 import Agents from "@/pages/Agents";
 import Opportunities from "@/pages/Opportunities";
 import Learning from "@/pages/Learning";
