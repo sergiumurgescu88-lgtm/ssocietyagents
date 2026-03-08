@@ -3,26 +3,48 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { useAuth } from "@/stores/auth-store";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import Dashboard from "@/pages/Dashboard";
-import Projects from "@/pages/Projects";
-import ProjectDetail from "@/pages/ProjectDetail";
-import Agents from "@/pages/Agents";
-import AgentDetail from "@/pages/AgentDetail";
-import Opportunities from "@/pages/Opportunities";
-import Learning from "@/pages/Learning";
-import Revenue from "@/pages/Revenue";
-import SettingsPage from "@/pages/Settings";
 import NotFound from "@/pages/NotFound";
 
-const queryClient = new QueryClient();
+// Lazy-loaded heavy pages
+const Projects = lazy(() => import("@/pages/Projects"));
+const ProjectDetail = lazy(() => import("@/pages/ProjectDetail"));
+const Agents = lazy(() => import("@/pages/Agents"));
+const AgentDetail = lazy(() => import("@/pages/AgentDetail"));
+const Opportunities = lazy(() => import("@/pages/Opportunities"));
+const Learning = lazy(() => import("@/pages/Learning"));
+const Revenue = lazy(() => import("@/pages/Revenue"));
+const SettingsPage = lazy(() => import("@/pages/Settings"));
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+function LazyPage({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    }>
+      {children}
+    </Suspense>
+  );
+}
 
 function AppRoutes() {
   const { initialize } = useAuth();
@@ -46,14 +68,14 @@ function AppRoutes() {
         }
       >
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/project/:id" element={<ProjectDetail />} />
-        <Route path="/agents" element={<Agents />} />
-        <Route path="/agent/:id" element={<AgentDetail />} />
-        <Route path="/opportunities" element={<Opportunities />} />
-        <Route path="/learning" element={<Learning />} />
-        <Route path="/revenue" element={<Revenue />} />
-        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/projects" element={<LazyPage><Projects /></LazyPage>} />
+        <Route path="/project/:id" element={<LazyPage><ProjectDetail /></LazyPage>} />
+        <Route path="/agents" element={<LazyPage><Agents /></LazyPage>} />
+        <Route path="/agent/:id" element={<LazyPage><AgentDetail /></LazyPage>} />
+        <Route path="/opportunities" element={<LazyPage><Opportunities /></LazyPage>} />
+        <Route path="/learning" element={<LazyPage><Learning /></LazyPage>} />
+        <Route path="/revenue" element={<LazyPage><Revenue /></LazyPage>} />
+        <Route path="/settings" element={<LazyPage><SettingsPage /></LazyPage>} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
@@ -61,15 +83,17 @@ function AppRoutes() {
 }
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;
