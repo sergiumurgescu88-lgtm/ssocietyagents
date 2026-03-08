@@ -26,6 +26,7 @@ const SettingsPage = lazy(() => import("@/pages/Settings"));
 const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const Pricing = lazy(() => import("@/pages/Pricing"));
+const LandingPage = lazy(() => import("@/pages/LandingPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,7 +65,7 @@ function AppRoutes() {
       <Route path="/terms" element={<LazyPage><TermsOfService /></LazyPage>} />
       <Route path="/privacy" element={<LazyPage><PrivacyPolicy /></LazyPage>} />
       <Route path="/pricing" element={<LazyPage><Pricing /></LazyPage>} />
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/" element={<LazyPage><LandingPage /></LazyPage>} />
       <Route
         element={
           <ProtectedRoute>
