@@ -160,6 +160,9 @@ export function UserProfile() {
       >
         {saving ? "Se salvează..." : "Salvează profil"}
       </button>
+
+
+      <GDPRSettings />
     </div>
   );
 }

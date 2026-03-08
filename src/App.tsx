@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useAuth } from "@/stores/auth-store";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
@@ -15,7 +15,6 @@ import ResetPassword from "@/pages/ResetPassword";
 import Dashboard from "@/pages/Dashboard";
 import NotFound from "@/pages/NotFound";
 
-// Lazy-loaded heavy pages
 const Projects = lazy(() => import("@/pages/Projects"));
 const ProjectDetail = lazy(() => import("@/pages/ProjectDetail"));
 const Agents = lazy(() => import("@/pages/Agents"));
@@ -24,6 +23,8 @@ const Opportunities = lazy(() => import("@/pages/Opportunities"));
 const Learning = lazy(() => import("@/pages/Learning"));
 const Revenue = lazy(() => import("@/pages/Revenue"));
 const SettingsPage = lazy(() => import("@/pages/Settings"));
+const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
+const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -59,6 +60,8 @@ function AppRoutes() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/terms" element={<LazyPage><TermsOfService /></LazyPage>} />
+      <Route path="/privacy" element={<LazyPage><PrivacyPolicy /></LazyPage>} />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route
         element={

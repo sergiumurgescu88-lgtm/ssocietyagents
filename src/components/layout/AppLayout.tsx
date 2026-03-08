@@ -4,13 +4,29 @@ import { AppHeader } from "./AppHeader";
 import { useAppStore } from "@/stores/app-store";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { FeedbackWidget } from "@/components/FeedbackWidget";
+import { OfflineIndicator } from "@/components/OfflineIndicator";
+import { OnboardingWizard } from "@/components/OnboardingWizard";
+import { useState, useEffect } from "react";
 
 export function AppLayout() {
   const { sidebarOpen } = useAppStore();
   const isMobile = useIsMobile();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    const dismissed = localStorage.getItem("ventureai-onboarding-done");
+    if (!dismissed) setShowOnboarding(true);
+  }, []);
+
+  const completeOnboarding = () => {
+    localStorage.setItem("ventureai-onboarding-done", "true");
+    setShowOnboarding(false);
+  };
 
   return (
     <div className="min-h-screen bg-background">
+      <OfflineIndicator />
       <AppSidebar />
       <div
         className={cn(
@@ -23,6 +39,8 @@ export function AppLayout() {
           <Outlet />
         </main>
       </div>
+      <FeedbackWidget />
+      {showOnboarding && <OnboardingWizard onComplete={completeOnboarding} />}
     </div>
   );
 }
