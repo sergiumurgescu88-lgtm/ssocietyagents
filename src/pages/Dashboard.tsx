@@ -150,7 +150,7 @@ export default function Dashboard() {
           </div>
           <div className="space-y-3">
             {opportunities.map((opp) => (
-              <OpportunityCard key={opp.id} opportunity={opp} />
+              <OpportunityCardSimple key={opp.id} opportunity={opp} />
             ))}
           </div>
         </div>
