@@ -3,6 +3,7 @@ import { useAuth } from "@/stores/auth-store";
 import { supabase } from "@/integrations/supabase/client";
 import { Camera, X, Plus } from "lucide-react";
 import { toast } from "sonner";
+import { GDPRSettings } from "./GDPRSettings";
 
 export function UserProfile() {
   const { profile, user, updateProfile } = useAuth();
@@ -159,6 +160,9 @@ export function UserProfile() {
       >
         {saving ? "Se salvează..." : "Salvează profil"}
       </button>
+
+
+      <GDPRSettings />
     </div>
   );
 }

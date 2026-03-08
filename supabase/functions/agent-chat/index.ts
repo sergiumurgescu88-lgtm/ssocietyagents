@@ -6,6 +6,23 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+// Rate limiting: 30 messages per 10 minutes per user
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 30;
+const RATE_WINDOW = 10 * 60 * 1000;
+
+function checkRateLimit(key: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(key);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(key, { count: 1, resetAt: now + RATE_WINDOW });
+    return true;
+  }
+  if (entry.count >= RATE_LIMIT) return false;
+  entry.count++;
+  return true;
+}
+
 const ROLE_PROMPTS: Record<string, string> = {
   project_manager:
     "Ești un Project Manager AI expert. Coordonezi proiecte, prioritizezi task-uri, creezi planuri de acțiune și raportezi progres. Răspunzi în română. Când ți se cere, poți sugera task-uri noi, identifica blocaje și propune soluții. Ești practic, concis și orientat spre rezultate.",
@@ -26,6 +43,15 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
 
   try {
+    // Extract IP/auth for rate limiting
+    const clientIp = req.headers.get("x-forwarded-for") || "unknown";
+    if (!checkRateLimit(clientIp)) {
+      return new Response(
+        JSON.stringify({ error: "Prea multe mesaje. Așteaptă câteva minute." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { messages, agentRole, agentName, projectTitle } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
