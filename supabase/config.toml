@@ -1,1 +1,7 @@
 project_id = "dzdiogvjgshvoaxcumnd"
+
+[functions.agent-chat]
+verify_jwt = false
+
+[functions.scan-opportunities]
+verify_jwt = false
