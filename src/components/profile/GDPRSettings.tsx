@@ -18,11 +18,11 @@ export function GDPRSettings() {
     if (!user) return;
     setExporting(true);
     try {
-      const tables = ["profiles", "projects", "project_agents", "tasks", "opportunities", "user_opportunities", "revenue_transactions", "expenses", "notifications", "user_modules", "certificates"];
+      const tables = ["profiles", "projects", "project_agents", "tasks", "opportunities", "user_opportunities", "revenue_transactions", "expenses", "notifications", "user_modules", "certificates"] as const;
       const exportData: Record<string, unknown[]> = {};
 
       for (const table of tables) {
-        const { data } = await supabase.from(table).select("*").eq("user_id", user.id);
+        const { data } = await (supabase.from(table) as any).select("*").eq("user_id", user.id);
         if (data && data.length > 0) exportData[table] = data;
       }
 
