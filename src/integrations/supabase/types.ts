@@ -84,6 +84,81 @@ export type Database = {
           },
         ]
       }
+      certificates: {
+        Row: {
+          category: string
+          earned_at: string
+          id: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          earned_at?: string
+          id?: string
+          title?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          earned_at?: string
+          id?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      learning_modules: {
+        Row: {
+          action_items: string[] | null
+          category: string
+          content: Json
+          created_at: string
+          description: string
+          difficulty: string
+          estimated_minutes: number
+          id: string
+          key_takeaways: string[] | null
+          lessons_count: number
+          resources: Json | null
+          sort_order: number
+          title: string
+          xp_reward: number
+        }
+        Insert: {
+          action_items?: string[] | null
+          category?: string
+          content?: Json
+          created_at?: string
+          description?: string
+          difficulty?: string
+          estimated_minutes?: number
+          id?: string
+          key_takeaways?: string[] | null
+          lessons_count?: number
+          resources?: Json | null
+          sort_order?: number
+          title: string
+          xp_reward?: number
+        }
+        Update: {
+          action_items?: string[] | null
+          category?: string
+          content?: Json
+          created_at?: string
+          description?: string
+          difficulty?: string
+          estimated_minutes?: number
+          id?: string
+          key_takeaways?: string[] | null
+          lessons_count?: number
+          resources?: Json | null
+          sort_order?: number
+          title?: string
+          xp_reward?: number
+        }
+        Relationships: []
+      }
       milestones: {
         Row: {
           completed: boolean | null
@@ -328,6 +403,38 @@ export type Database = {
         }
         Relationships: []
       }
+      quizzes: {
+        Row: {
+          created_at: string
+          id: string
+          module_id: string
+          passing_score: number
+          questions: Json
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          module_id: string
+          passing_score?: number
+          questions?: Json
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          module_id?: string
+          passing_score?: number
+          questions?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quizzes_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "learning_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       scan_logs: {
         Row: {
           duration_ms: number | null
@@ -478,6 +585,53 @@ export type Database = {
         }
         Relationships: []
       }
+      user_modules: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          module_id: string
+          progress: number
+          quiz_score: number | null
+          status: string
+          time_spent_minutes: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          module_id: string
+          progress?: number
+          quiz_score?: number | null
+          status?: string
+          time_spent_minutes?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          module_id?: string
+          progress?: number
+          quiz_score?: number | null
+          status?: string
+          time_spent_minutes?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_modules_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "learning_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_opportunities: {
         Row: {
           created_at: string
@@ -509,6 +663,44 @@ export type Database = {
             columns: ["opportunity_id"]
             isOneToOne: false
             referencedRelation: "opportunities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_quizzes: {
+        Row: {
+          answers: Json
+          id: string
+          passed: boolean
+          quiz_id: string
+          score: number
+          taken_at: string
+          user_id: string
+        }
+        Insert: {
+          answers?: Json
+          id?: string
+          passed?: boolean
+          quiz_id: string
+          score?: number
+          taken_at?: string
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          id?: string
+          passed?: boolean
+          quiz_id?: string
+          score?: number
+          taken_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_quizzes_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
             referencedColumns: ["id"]
           },
         ]
