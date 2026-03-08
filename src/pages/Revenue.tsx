@@ -156,10 +156,10 @@ export default function Revenue() {
 
       {/* Stats */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Venit Total" value={`$${totalRevenue.toLocaleString()}`} icon={DollarSign} trend={growthPct > 0 ? `+${growthPct.toFixed(0)}%` : `${growthPct.toFixed(0)}%`} trendUp={growthPct > 0} />
+        <StatCard title="Venit Total" value={`$${totalRevenue.toLocaleString()}`} icon={DollarSign} change={growthPct !== 0 ? `${growthPct > 0 ? "+" : ""}${growthPct.toFixed(0)}% vs luna trecută` : undefined} changeType={growthPct > 0 ? "positive" : "negative"} />
         <StatCard title="Luna aceasta" value={`$${thisMonthRev.toLocaleString()}`} icon={TrendingUp} />
         <StatCard title="Cheltuieli Total" value={`$${totalExpenses.toLocaleString()}`} icon={TrendingDown} />
-        <StatCard title="Profit Net" value={`$${netProfit.toLocaleString()}`} icon={ArrowUpRight} trendUp={netProfit > 0} />
+        <StatCard title="Profit Net" value={`$${netProfit.toLocaleString()}`} icon={ArrowUpRight} changeType={netProfit > 0 ? "positive" : "negative"} />
       </div>
 
       {/* Tabs */}
