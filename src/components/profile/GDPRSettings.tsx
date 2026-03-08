@@ -44,9 +44,9 @@ export function GDPRSettings() {
     if (!user) return;
     setDeleting(true);
     try {
-      const tables = ["notifications", "notification_preferences", "expenses", "revenue_transactions", "user_opportunities", "user_modules", "user_quizzes", "certificates", "agent_conversations", "agent_logs", "tasks", "project_agents", "milestones", "scan_logs", "opportunities", "projects", "usage_tracking", "subscriptions", "profiles"];
+      const tables = ["notifications", "notification_preferences", "expenses", "revenue_transactions", "user_opportunities", "user_modules", "user_quizzes", "certificates", "agent_conversations", "agent_logs", "tasks", "project_agents", "milestones", "scan_logs", "opportunities", "projects", "usage_tracking", "subscriptions", "profiles"] as const;
       for (const table of tables) {
-        await supabase.from(table).delete().eq("user_id", user.id);
+        await (supabase.from(table) as any).delete().eq("user_id", user.id);
       }
       await signOut();
       toast({ title: "Cont șters", description: "Toate datele tale au fost șterse." });
